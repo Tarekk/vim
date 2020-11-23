@@ -36,3 +36,4 @@ nnoremap <leader>c zM
 vnoremap <silent> # :s/^/#/<cr>:noh<cr>
 vnoremap <silent> -# :s/^#//<cr>:noh<cr>
 set clipboard=unnamed
+map <leader>b :ls<CR>:b
