@@ -22,8 +22,7 @@ set relativenumber
 set nohlsearch
 set hidden
 
-"This sets a marker at 80 columns wide
-set colorcolumn=80
+set colorcolumn=120
 
 call plug#begin('~/.vim/plugged')
 
