@@ -1,12 +1,29 @@
 syntax on
 set noerrorbells
-set smartindent tabstop=4 shiftwidth=4
+
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+
 set nu
 set nowrap
 set smartcase
+
 set noswapfile
 set nobackup
+
 set incsearch
+
+set termguicolors
+set scrolloff=8 "This is so scroll start moving page down when it reaches 8 rows
+
+set relativenumber
+set nohlsearch
+set hidden
+
+"This sets a marker at 80 columns wide
+set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
 
