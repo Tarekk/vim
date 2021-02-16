@@ -15,7 +15,6 @@ set nobackup
 
 set incsearch
 
-set termguicolors
 set scrolloff=8 "This is so scroll start moving page down when it reaches 8 rows
 
 set relativenumber
@@ -29,8 +28,16 @@ call plug#begin('~/.vim/plugged')
 Plug 'gruvbox-community/gruvbox'
 Plug 'preservim/nerdtree'
 Plug 'tmhedberg/SimpylFold'
+Plug 'pangloss/vim-javascript'
+Plug 'valloric/youcompleteme'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
+
+"This is to remap youcompletemes default accept suggestion
+let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
+
+let g:javascript_plugin_jsdoc = 1
 
 let g:SimpylFold_docstring_preview = 1
 nnoremap <space> za
