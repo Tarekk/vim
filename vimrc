@@ -28,9 +28,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'gruvbox-community/gruvbox'
 Plug 'preservim/nerdtree'
 Plug 'tmhedberg/SimpylFold'
-Plug 'pangloss/vim-javascript'
+"Plug 'pangloss/vim-javascript'
 Plug 'valloric/youcompleteme'
 Plug 'jiangmiao/auto-pairs'
+Plug 'prettier/vim-prettier', {'do': 'yarn install','branch': 'release/0.x'}
+Plug 'pbrisbin/alt-ctags'
 
 call plug#end()
 
@@ -60,3 +62,15 @@ vnoremap <silent> # :s/^/#/<cr>:noh<cr>
 vnoremap <silent> -# :s/^#//<cr>:noh<cr>
 set clipboard=unnamed
 map <leader>b :ls<CR>:b
+
+" when running at every change you may want to disable quickfix
+let g:prettier#quickfix_enabled = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+"auto open nerdtree when opening vim
+au VimEnter *  NERDTree
+
+"ctrl-a select all
+nnoremap <leader>a ggVG
+
+autocmd BufWritePost * Ctags
