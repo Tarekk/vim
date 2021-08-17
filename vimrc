@@ -6,6 +6,8 @@ set shiftwidth=4
 set expandtab
 set smartindent
 
+set shortmess-=S
+
 set nu
 set nowrap
 set smartcase
