@@ -33,8 +33,15 @@ Plug 'valloric/youcompleteme'
 Plug 'jiangmiao/auto-pairs'
 Plug 'prettier/vim-prettier', {'do': 'yarn install','branch': 'release/0.x'}
 Plug 'pbrisbin/alt-ctags'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
+
+"This is forvfzf so that I can search in my local projects folder
+command! -bang ProjectFiles call fzf#vim#files('~/Documents/Projects', <bang>0)
+map <leader>v :Buffers<CR>
+map <leader>s :Files<CR>
 
 "This is to remap youcompletemes default accept suggestion
 let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
@@ -61,14 +68,13 @@ nnoremap <leader>c zM
 vnoremap <silent> # :s/^/#/<cr>:noh<cr>
 vnoremap <silent> -# :s/^#//<cr>:noh<cr>
 set clipboard=unnamed
-map <leader>b :ls<CR>:b
 
 " when running at every change you may want to disable quickfix
 let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 "auto open nerdtree when opening vim
-au VimEnter *  NERDTree
+au VimEnter *  NERDTree | wincmd l 
 
 "ctrl-a select all
 nnoremap <leader>a ggVG
