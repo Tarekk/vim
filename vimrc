@@ -23,8 +23,6 @@ set relativenumber
 set nohlsearch
 set hidden
 
-set colorcolumn=120
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'gruvbox-community/gruvbox'
@@ -39,6 +37,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
+
+let mapleader = ","
 
 "This is forvfzf so that I can search in my local projects folder
 command! -bang ProjectFiles call fzf#vim#files('~/Documents/Projects', <bang>0)
@@ -55,8 +55,10 @@ nnoremap <space> za
 
 colorscheme gruvbox
 set background=dark
+highlight Normal        ctermbg=NONE guibg=NONE
+highlight LineNr        ctermbg=NONE guibg=NONE
+highlight SignColumn    ctermbg=NONE guibg=NONE
 
-let mapleader = "."
 map <Enter> O<ESC>
 
 nnoremap <leader>h :wincmd h <CR>
@@ -76,7 +78,7 @@ let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 "auto open nerdtree when opening vim
-au VimEnter *  NERDTree | wincmd l 
+"au VimEnter *  NERDTree | wincmd l 
 
 "ctrl-a select all
 nnoremap <leader>a ggVG
