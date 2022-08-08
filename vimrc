@@ -29,12 +29,16 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'preservim/nerdtree'
 Plug 'tmhedberg/SimpylFold'
 "Plug 'pangloss/vim-javascript'
-Plug 'valloric/youcompleteme'
+"Plug 'valloric/youcompleteme'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'prettier/vim-prettier', {'do': 'yarn install','branch': 'release/0.x'}
-Plug 'pbrisbin/alt-ctags'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+"Plug 'pbrisbin/alt-ctags'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
+Plug 'psf/black', { 'branch': 'stable' }
 
 call plug#end()
 
@@ -46,7 +50,37 @@ map <leader>v :Buffers<CR>
 map <leader>s :Files<CR>
 
 "This is to remap youcompletemes default accept suggestion
-let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
+"let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
+
+let g:coc_global_extensions = ['coc-tsserver', 'coc-pyright']
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
 
 let g:javascript_plugin_jsdoc = 1
 
@@ -82,5 +116,16 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 
 "ctrl-a select all
 nnoremap <leader>a ggVG
+nnoremap <silent> <leader>ca :w <bar> %bd <bar> e# <bar> bd# <CR><CR>
 
-autocmd BufWritePost * Ctags
+"sane copy and paste
+xnoremap <expr> p 'pgv"'.v:register.'y`>'
+xnoremap <expr> P 'Pgv"'.v:register.'y`>'
+
+"auto formatting python with black
+augroup black_on_save
+  autocmd!
+    autocmd BufWritePre *.py Black
+augroup end
+    "
+"autocmd BufWritePost * Ctags
